@@ -34,17 +34,17 @@ export const OPTIONS_SORT = [
 export const CHART_VIEW = [
   {
     id: "confirmed",
-    label: "Top 5 total confirmed cases",
+    label: "Total confirmed cases",
     key: "TotalConfirmed",
   },
   {
     id: "deaths",
-    label: "Top 5 total deaths case",
+    label: "Total deaths case",
     key: "TotalDeaths",
   },
   {
     id: "recovered",
-    label: "Top 5 total recovered cases",
+    label: "Total recovered cases",
     key: "TotalRecovered",
   },
 ];

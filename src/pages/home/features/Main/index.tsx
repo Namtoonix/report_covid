@@ -155,9 +155,11 @@ function Main() {
         <span className="font-[600]">View chart:</span>
         {CHART_VIEW.map((item) => (
           <li
-            className={`p-[12px] cursor-pointer hover:text-[#1677ff]`}
+            className={`p-[12px] hover:text-[#1677ff] ${
+              loading ? "cursor-wait" : "cursor-pointer"
+            }`}
             key={item.id}
-            onClick={() => setChartView(item.id)}
+            onClick={() => !loading && setChartView(item.id)}
           >
             {item.label}
           </li>
@@ -179,6 +181,7 @@ function Main() {
       {chartView && (
         <Chart
           item={CHART_VIEW.filter((item) => item.id === chartView)[0]}
+          global={{ ...results?.Global, Country: "Global" }}
           data={results?.Countries || []}
           chartView={chartView}
           onCancel={() => setChartView("")}
