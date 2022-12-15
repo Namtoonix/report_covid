@@ -1,25 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { MasterLayout } from "components/Layout/loadabled";
+import { NotFound } from "pages/notFound/loadabled";
+import { Routes, Route } from "react-router-dom";
+import { routers } from "routes";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MasterLayout>
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+        {routers.map((router: Record<string, any>, index: number) => {
+          return (
+            <Route key={index} path={router.path} element={router.element} />
+          );
+        })}
+      </Routes>
+    </MasterLayout>
   );
 }
 
