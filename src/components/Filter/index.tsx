@@ -15,6 +15,7 @@ const Filter = (props: IProps) => {
 
   return (
     <Select
+      style={{ width: 300, marginLeft: 12 }}
       defaultValue={value}
       onChange={handleChangeSort}
       options={options}

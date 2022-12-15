@@ -7,32 +7,14 @@ export const GET_LIST_COMPLETED = scope + "GET_LIST_COMPLETED";
 
 export const SET_QUERY = scope + "SET_QUERY";
 export const SET_TOTAL_PAGE = scope + "SET_TOTAL_PAGE";
-export const SET_SORT = scope + "SET_SORT";
+// export const SET_SORT = scope + "SET_SORT";
+
+export const GET_COUNTRY_DETAIL = scope + "GET_COUNTRY_DETAIL";
+export const GET_COUNTRY_DETAIL_SUCCESS = scope + "GET_COUNTRY_DETAIL_SUCCESS";
+export const GET_COUNTRY_DETAIL_ERROR = scope + "GET_COUNTRY_DETAIL_ERROR";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_LIMIT = 10;
-
-export const COLUMNS = [
-  {
-    title: "Country",
-    dataIndex: "Country",
-  },
-  {
-    title: "TotalConfirmed",
-    dataIndex: "TotalConfirmed",
-    width: "20%",
-  },
-  {
-    title: "TotalDeaths",
-    dataIndex: "TotalDeaths",
-    width: "20%",
-  },
-  {
-    title: "TotalRecovered",
-    dataIndex: "TotalRecovered",
-    width: "20%",
-  },
-];
 
 export const OPTIONS_SORT = [
   {

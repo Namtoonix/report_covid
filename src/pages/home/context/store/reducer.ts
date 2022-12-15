@@ -6,8 +6,9 @@ import {
   SET_QUERY,
   DEFAULT_PAGE,
   DEFAULT_LIMIT,
-  OPTIONS_SORT,
-  SET_SORT,
+  GET_COUNTRY_DETAIL,
+  GET_COUNTRY_DETAIL_SUCCESS,
+  GET_COUNTRY_DETAIL_ERROR,
 } from "./constants";
 
 export const initialState = {
@@ -19,7 +20,9 @@ export const initialState = {
     pageSize: DEFAULT_LIMIT,
     total: 0,
   },
-  sortBy: OPTIONS_SORT[0].value,
+  loadingDetail: false,
+  detail: {},
+  // sortType: OPTIONS_SORT[0].value,
 };
 
 const reducer = (state: any, action: any) => {
@@ -55,10 +58,29 @@ const reducer = (state: any, action: any) => {
         params: action.payload,
       };
 
-    case SET_SORT:
+    // case SET_SORT:
+    //   return {
+    //     ...state,
+    //     sortType: action.payload,
+    //   };
+
+    case GET_COUNTRY_DETAIL:
       return {
         ...state,
-        sortBy: action.payload,
+        loadingDetail: true,
+        error: "",
+      };
+    case GET_COUNTRY_DETAIL_SUCCESS:
+      return {
+        ...state,
+        loadingDetail: false,
+        detail: action.payload,
+      };
+    case GET_COUNTRY_DETAIL_ERROR:
+      return {
+        ...state,
+        loadingDetail: false,
+        error: action.payload,
       };
     default:
       throw new Error("Action invalid");

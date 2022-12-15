@@ -5,7 +5,9 @@ import {
   SET_QUERY,
   SET_TOTAL_PAGE,
   GET_LIST_COMPLETED,
-  SET_SORT,
+  GET_COUNTRY_DETAIL,
+  GET_COUNTRY_DETAIL_SUCCESS,
+  GET_COUNTRY_DETAIL_ERROR,
 } from "./constants";
 
 export const getReportData = (payload: any) => ({
@@ -36,7 +38,20 @@ export const setTotalPage = (payload: any) => ({
   payload,
 });
 
-export const setSort = (payload: any) => ({
-  type: SET_SORT,
+export const getCountryDetail = (payload: any) => ({
+  type: GET_COUNTRY_DETAIL,
   payload,
 });
+export const getCountryDetailSuccess = (payload: any) => ({
+  type: GET_COUNTRY_DETAIL_SUCCESS,
+  payload,
+});
+export const getCountryDetailError = (payload: any) => ({
+  type: GET_COUNTRY_DETAIL_ERROR,
+  payload,
+});
+
+// export const setSort = (payload: any) => ({
+//   type: SET_SORT,
+//   payload,
+// });
