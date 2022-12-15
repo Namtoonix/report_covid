@@ -30,3 +30,21 @@ export const OPTIONS_SORT = [
     label: "The least number of recovered cases",
   },
 ];
+
+export const CHART_VIEW = [
+  {
+    id: "confirmed",
+    label: "Top 5 total confirmed cases",
+    key: "TotalConfirmed",
+  },
+  {
+    id: "deaths",
+    label: "Top 5 total deaths case",
+    key: "TotalDeaths",
+  },
+  {
+    id: "recovered",
+    label: "Top 5 total recovered cases",
+    key: "TotalRecovered",
+  },
+];

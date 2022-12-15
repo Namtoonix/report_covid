@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Avatar, Card, Skeleton } from "antd";
+import { Card, Skeleton } from "antd";
 import { ModalLayout } from "components/Modal/loadabled";
 import { TableLayout } from "components/Table/loadabled";
 import { ModelCountry } from "models/Country";
 import { ModelReport } from "models/Report";
 import { useStore } from "pages/home/context/store";
+import { CHART_VIEW } from "pages/home/context/store/constants";
 import { EffectCallback, useEffect, useState } from "react";
 import { formatNumber } from "utils/helper";
+import { Chart } from "../Chart/loadabled";
 const { Meta } = Card;
 
 function Main() {
@@ -15,6 +17,7 @@ function Main() {
   const { getList } = ModelReport();
   const { getDetail } = ModelCountry();
   const [countryView, setCountryView] = useState("");
+  const [chartView, setChartView] = useState("");
 
   const COLUMNS = [
     {
@@ -148,6 +151,18 @@ function Main() {
       <h3 className="text-center my-[20px] text-[20px] font-[600]">
         List of countries which are most affected by Covid-19
       </h3>
+      <ul className="flex mb-[20px] items-center">
+        <span className="font-[600]">View chart:</span>
+        {CHART_VIEW.map((item) => (
+          <li
+            className={`p-[12px] cursor-pointer hover:text-[#1677ff]`}
+            key={item.id}
+            onClick={() => setChartView(item.id)}
+          >
+            {item.label}
+          </li>
+        ))}
+      </ul>
       <TableLayout
         columns={COLUMNS}
         params={params}
@@ -161,6 +176,14 @@ function Main() {
         isModalOpen={countryView !== ""}
         onCancel={() => setCountryView("")}
       />
+      {chartView && (
+        <Chart
+          item={CHART_VIEW.filter((item) => item.id === chartView)[0]}
+          data={results?.Countries || []}
+          chartView={chartView}
+          onCancel={() => setChartView("")}
+        />
+      )}
     </div>
   );
 }
