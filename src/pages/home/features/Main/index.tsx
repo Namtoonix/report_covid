@@ -151,20 +151,22 @@ function Main() {
       <h3 className="text-center my-[20px] text-[20px] font-[600]">
         List of countries which are most affected by Covid-19
       </h3>
-      <ul className="flex mb-[20px] items-center">
+      <div className="sm:flex">
         <span className="font-[600]">View chart:</span>
-        {CHART_VIEW.map((item) => (
-          <li
-            className={`p-[12px] hover:text-[#1677ff] ${
-              loading ? "cursor-wait" : "cursor-pointer"
-            }`}
-            key={item.id}
-            onClick={() => !loading && setChartView(item.id)}
-          >
-            {item.label}
-          </li>
-        ))}
-      </ul>
+        <ul className="sm:flex mb-[20px] items-center">
+          {CHART_VIEW.map((item) => (
+            <li
+              className={`p-[12px] hover:text-[#1677ff] ${
+                loading ? "cursor-wait" : "cursor-pointer"
+              }`}
+              key={item.id}
+              onClick={() => !loading && setChartView(item.id)}
+            >
+              {item.label}
+            </li>
+          ))}
+        </ul>
+      </div>
       <TableLayout
         columns={COLUMNS}
         params={params}
