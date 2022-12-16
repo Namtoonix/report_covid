@@ -2,6 +2,7 @@
 import { Card, Skeleton } from "antd";
 import { ModalLayout } from "components/Modal/loadabled";
 import { TableLayout } from "components/Table/loadabled";
+import { ToastMessage } from "components/ToastMessage/loadabled";
 import { ModelCountry } from "models/Country";
 import { ModelReport } from "models/Report";
 import { useStore } from "pages/home/context/store";
@@ -13,7 +14,7 @@ const { Meta } = Card;
 
 function Main() {
   const { dispatch, actions, state } = useStore();
-  const { params, loading, results, loadingDetail, detail } = state;
+  const { params, loading, results, loadingDetail, detail, error } = state;
   const { getList } = ModelReport();
   const { getDetail } = ModelCountry();
   const [countryView, setCountryView] = useState("");
@@ -147,49 +148,52 @@ function Main() {
   };
 
   return (
-    <div>
-      <h3 className="text-center my-[20px] text-[20px] font-[600]">
-        List of countries which are most affected by Covid-19
-      </h3>
-      <div className="sm:flex">
-        <span className="font-[600]">View chart:</span>
-        <ul className="sm:flex mb-[20px] items-center">
-          {CHART_VIEW.map((item) => (
-            <li
-              className={`p-[12px] hover:text-[#1677ff] ${
-                loading ? "cursor-wait" : "cursor-pointer"
-              }`}
-              key={item.id}
-              onClick={() => !loading && setChartView(item.id)}
-            >
-              {item.label}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <TableLayout
-        columns={COLUMNS}
-        params={params}
-        data={results?.Countries || []}
-        loading={loading}
-        onChange={handleOnChangePagination}
-      />
-      <ModalLayout
-        title={countryView}
-        content={renderContent()}
-        isModalOpen={countryView !== ""}
-        onCancel={() => setCountryView("")}
-      />
-      {chartView && (
-        <Chart
-          item={CHART_VIEW.filter((item) => item.id === chartView)[0]}
-          global={{ ...results?.Global, Country: "Global" }}
+    <>
+      <div>
+        <h3 className="text-center my-[20px] text-[20px] font-[600]">
+          List of countries which are most affected by Covid-19
+        </h3>
+        <div className="sm:flex">
+          <span className="font-[600]">View chart:</span>
+          <ul className="sm:flex mb-[20px] items-center">
+            {CHART_VIEW.map((item) => (
+              <li
+                className={`p-[12px] hover:text-[#1677ff] ${
+                  loading ? "cursor-wait" : "cursor-pointer"
+                }`}
+                key={item.id}
+                onClick={() => !loading && setChartView(item.id)}
+              >
+                {item.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <TableLayout
+          columns={COLUMNS}
+          params={params}
           data={results?.Countries || []}
-          chartView={chartView}
-          onCancel={() => setChartView("")}
+          loading={loading}
+          onChange={handleOnChangePagination}
         />
-      )}
-    </div>
+        <ModalLayout
+          title={countryView}
+          content={renderContent()}
+          isModalOpen={countryView !== ""}
+          onCancel={() => setCountryView("")}
+        />
+        {chartView && (
+          <Chart
+            item={CHART_VIEW.filter((item) => item.id === chartView)[0]}
+            global={{ ...results?.Global, Country: "Global" }}
+            data={results?.Countries || []}
+            chartView={chartView}
+            onCancel={() => setChartView("")}
+          />
+        )}
+      </div>
+      {error && <ToastMessage message={error} />}
+    </>
   );
 }
 
