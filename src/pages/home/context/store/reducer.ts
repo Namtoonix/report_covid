@@ -48,8 +48,7 @@ const reducer = (state: any, action: any) => {
       return {
         ...state,
         loading: false,
-        total: action.payload?.Countries?.length || 0,
-        results: action.payload,
+        total: action.payload,
       };
 
     case SET_QUERY:

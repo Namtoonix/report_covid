@@ -74,11 +74,11 @@ function Main() {
     if (isError) {
       dispatch(actions.getReportDataError(data.message || "Fetch error!"));
     } else {
-      if (data.Message === "") {
-        dispatch(actions.getReportDataCompleted(data));
-      } else {
-        dispatch(actions.getReportDataSuccess(data));
+      dispatch(actions.getReportDataSuccess(data));
+      if (data.Message !== "") {
         intervalFetch();
+      } else {
+        dispatch(actions.getReportDataCompleted(data.Countries?.length || 0));
       }
     }
   };
@@ -153,9 +153,9 @@ function Main() {
         <h3 className="text-center my-[20px] text-[20px] font-[600]">
           List of countries which are most affected by Covid-19
         </h3>
-        <div className="sm:flex">
+        <div className="sm:flex items-center mb-[20px]">
           <span className="font-[600]">View chart:</span>
-          <ul className="sm:flex mb-[20px] items-center">
+          <ul className="sm:flex items-center">
             {CHART_VIEW.map((item) => (
               <li
                 className={`p-[12px] hover:text-[#1677ff] ${
