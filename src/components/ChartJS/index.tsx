@@ -32,8 +32,6 @@ const ChartComponent = (props: IProps) => {
     }
   });
 
-  console.log(label);
-
   const renderChartCanvas = () => {
     new Chart(canvasRef.current, {
       type: "pie",

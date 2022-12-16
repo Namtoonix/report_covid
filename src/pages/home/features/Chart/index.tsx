@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ChartComponent } from "components/ChartJS/loadabled";
 import { ModalLayout } from "components/Modal/loadabled";
+import { NoData } from "components/NoData/loadabled";
 
 interface IProps {
   data: any;
@@ -16,27 +17,28 @@ function Chart(props: IProps) {
     ...data.sort((a: any, b: any) => {
       return b[`${item.key}`] - a[`${item.key}`];
     }),
-  ];
-
-  const top5 = [
-    dataChart[0],
-    dataChart[1],
-    dataChart[2],
-    dataChart[3],
-    dataChart[4],
-  ];
+  ].slice(0, 4);
 
   const others = {
     Country: "Others",
     TotalConfirmed:
       global.TotalConfirmed -
-      top5.reduce((total: number, item: any) => total + item.TotalConfirmed, 0),
+      dataChart.reduce(
+        (total: number, item: any) => total + item.TotalConfirmed,
+        0
+      ),
     TotalDeaths:
       global.TotalDeaths -
-      top5.reduce((total: number, item: any) => total + item.TotalDeaths, 0),
+      dataChart.reduce(
+        (total: number, item: any) => total + item.TotalDeaths,
+        0
+      ),
     TotalRecovered:
       global -
-      top5.reduce((total: number, item: any) => total + item.TotalRecovered, 0),
+      dataChart.reduce(
+        (total: number, item: any) => total + item.TotalRecovered,
+        0
+      ),
   };
 
   const backgrounds: any = [
@@ -49,9 +51,11 @@ function Chart(props: IProps) {
   ];
 
   const renderContent = (item: any) => {
-    return (
+    return global[`${item.key}`] === 0 ? (
+      <NoData />
+    ) : (
       <ChartComponent
-        chartData={[others, ...top5]}
+        chartData={[others, ...dataChart]}
         backgrounds={backgrounds}
         label={item.key}
       />
